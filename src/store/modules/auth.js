@@ -4,7 +4,6 @@ import router from '../../router/index';
 
 const LS = new LocalStorage();
 
-
 export default {
   state: {
     token: '',

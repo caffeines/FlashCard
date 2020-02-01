@@ -5,13 +5,14 @@
       <FlashCardHeader />
       <div class="d-flex flex-wrap">
         <CreateFlashCard />
-        <FlashCard :cardData="card" v-for="(card, idx) in cards.cards" :key="idx" />
+        <FlashCard :cardData="card" v-for="(card, idx) in getCards" :key="idx" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import FlashCard from '@/components/FlashCard.vue';
 import CreateFlashCard from '@/components/CreateFlashCard.vue';
 import FlashCardHeader from '@/components/FlashCardHeader.vue';
@@ -30,9 +31,7 @@ export default {
     };
   },
   computed: {
-    cards() {
-      return this.$store.state.cards;
-    },
+    ...mapGetters(['getCards']),
   },
   created() {
     this.loading = true;
