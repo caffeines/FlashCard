@@ -62,6 +62,5 @@ export default {
   },
   getters: {
     isLogedIn: state => !!state.token,
-    profile: state => state.profile,
   },
 };
