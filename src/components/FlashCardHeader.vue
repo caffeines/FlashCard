@@ -16,7 +16,7 @@
             <v-avatar left v-if="flag[idx]">
               <v-icon>mdi-check</v-icon>
             </v-avatar>
-            {{ chip.name || chip }}
+            {{ chip }}
           </v-chip>
         </v-chip-group>
       </v-row>
@@ -42,6 +42,7 @@ import { mapGetters } from 'vuex';
 export default {
   data: () => ({
     flag: {},
+    selectedTopics: [],
     selected: [],
     searchText: '',
     loading: false,
@@ -53,15 +54,38 @@ export default {
       return [...hardCoded, ...this.getTopics.slice(0, 12)];
     },
   },
+  watch: {
+    // eslint-disable-next-line no-unused-vars
+    getTopics(val) {
+      this.chipStatus();
+    },
+  },
+  created() {
+    this.chipStatus();
+  },
   mounted() {
-    const selectedTopic = localStorage.getItem('topics');
-    this.flag = JSON.parse(selectedTopic) || {};
   },
   methods: {
+    chipStatus() {
+      const JO = localStorage.getItem('topics');
+      this.selectedTopics = JSON.parse(JO) || {};
+      this.selectedTopics.forEach((topic) => {
+        const index = this.topics.indexOf(topic);
+        if (index > -1) {
+          this.flag[index] = true;
+        }
+      });
+    },
     handleChips(idx) {
       this.flag[idx] = !this.flag[idx];
-      const selectedTopic = JSON.stringify(this.flag);
-      localStorage.setItem('topics', selectedTopic);
+      const index = this.selectedTopics.indexOf(this.topics[idx]);
+      if (index > -1) {
+        this.selectedTopics.splice(index, 1);
+      } else {
+        this.selectedTopics.push(this.topics[idx]);
+      }
+      const JO = JSON.stringify(this.selectedTopics);
+      localStorage.setItem('topics', JO);
     },
   },
 };

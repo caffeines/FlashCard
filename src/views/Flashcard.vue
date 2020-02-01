@@ -39,7 +39,6 @@
                 :key="JSON.stringify(data.item)"
                 v-bind="data.attrs"
                 :input-value="data.selected"
-                :disabled="data.disabled"
                 @click:close="data.parent.selectItem(data.item)"
                 close
               >
@@ -102,7 +101,7 @@
   </v-row>
 </template>
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
   data: () => ({
@@ -117,10 +116,11 @@ export default {
       min: v => (v && v.length >= 100) || 'Min 100 characters',
     },
     select: [],
-    items: ['Programming', 'Design', 'Vue', 'Vuetify'],
+    items: [],
   }),
 
   computed: {
+    ...mapGetters(['getTopics']),
     form() {
       return {
         title: this.title,
@@ -130,7 +130,9 @@ export default {
       };
     },
   },
-
+  mounted() {
+    this.items = this.getTopics;
+  },
   watch: {
     title() {
       this.errorMessages = '';
@@ -151,7 +153,7 @@ export default {
       return true;
     },
     maxCheck() {
-      if (this.select.length > 3) return 'Maximum four topics allowed';
+      if (this.select.length > 2) return 'Maximum two topics allowed';
       return true;
     },
     resetForm() {
