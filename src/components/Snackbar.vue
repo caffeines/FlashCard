@@ -1,8 +1,8 @@
 <template>
   <v-card>
-    <v-snackbar v-model="snackShow" :color="status" right :timeout="6000" top>
-      {{ text }}
-      <v-btn dark :color="!status? 'pink': ''" text @click="makeOff">
+    <v-snackbar v-model="snackShow" :color="getStatus" right :timeout="6000" top>
+      {{ getText }}
+      <v-btn dark :color="!getStatus? 'pink': ''" text @click="offSnackbar">
         <v-icon>mdi-close-circle</v-icon>
       </v-btn>
     </v-snackbar>
@@ -10,29 +10,24 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
+
 export default {
   computed: {
-    status() {
-      return this.$store.state.snackbar.status;
-    },
-    text() {
-      return this.$store.state.snackbar.text;
-    },
+    ...mapGetters(['getStatus', 'getText', 'getSnackbar']),
     snackShow: {
       get() {
-        return this.$store.state.snackbar.show;
+        return this.getSnackbar;
       },
       set(newVal) {
         if (!newVal) {
-          this.$store.dispatch('snackbar/offSnackbar');
+          this.offSnackbar();
         }
       },
     },
   },
   methods: {
-    makeOff() {
-      this.$store.dispatch('snackbar/offSnackbar');
-    },
+    ...mapActions(['offSnackbar']),
   },
 };
 </script>

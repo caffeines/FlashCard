@@ -4,7 +4,6 @@ import router from '../../router/index';
 
 const LS = new LocalStorage();
 
-
 export default {
   state: {
     token: '',
@@ -46,7 +45,7 @@ export default {
       }
     },
 
-    isLogedIn({ commit }) {
+    isLogedInRequest({ commit }) {
       const token = LS.getItem('authtoken');
       if (token) {
         commit('setToken', token);
@@ -63,6 +62,5 @@ export default {
   },
   getters: {
     isLogedIn: state => !!state.token,
-    profile: state => state.profile,
   },
 };

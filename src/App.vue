@@ -40,6 +40,7 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
 import Snackbar from '@/components/Snackbar.vue';
 
 export default {
@@ -54,8 +55,9 @@ export default {
     };
   },
   computed: {
+    ...mapGetters(['isLogedIn']),
     getItems() {
-      if (this.loginStatus) {
+      if (this.isLogedIn) {
         const items = [
           {
             icon: 'mdi-home',
@@ -63,7 +65,7 @@ export default {
             to: '/',
           },
           {
-            icon: 'mdi-user',
+            icon: 'mdi-account',
             title: 'Profile',
             to: '/profile',
           },
@@ -95,8 +97,13 @@ export default {
       return items;
     },
   },
-  mounted() {
-    this.loginStatus = this.$store.dispatch('auth/isLogedIn');
+  async mounted() {
+    this.isLogedInRequest();
+    await this.topicsRequest();
+    await this.cardsRequest();
+  },
+  methods: {
+    ...mapActions(['cardsRequest', 'topicsRequest', 'isLogedInRequest']),
   },
 };
 </script>

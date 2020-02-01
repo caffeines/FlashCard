@@ -160,7 +160,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(['singupRequest', 'usernameCheckRequest']),
+    ...mapActions(['singupRequest', 'usernameCheckRequest', 'showSnackbar']),
 
     checkPassword() {
       if (this.password !== this.conPassword) {
@@ -226,13 +226,13 @@ export default {
             password: this.conPassword,
             email: this.email,
           });
-          this.$store.dispatch('snackbar/showSnackbar', {
+          this.showSnackbar({
             status: 'success',
             text: 'Please confirm your mail',
           });
           this.$router.push('/login');
         } catch (ex) {
-          this.$store.dispatch('snackbar/showSnackbar', {
+          this.showSnackbar({
             status: 'error',
             text: ex.response.data.errors.message,
           });

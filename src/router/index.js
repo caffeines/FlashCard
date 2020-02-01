@@ -18,8 +18,24 @@ const routes = [
   {
     path: '/signup',
     name: 'signup',
-    component: () => import(/* webpackChunkName: "login" */ '../views/Signup.vue'),
+    component: () => import(/* webpackChunkName: "signup" */ '../views/Signup.vue'),
   },
+  {
+    path: '/verify',
+    name: 'verify',
+    component: () => import(/* webpackChunkName: "verify" */ '../views/Verify.vue'),
+  },
+  {
+    path: '/logout',
+    name: 'logout',
+    component: () => import(/* webpackChunkName: "logout" */ '../views/Logout.vue'),
+  },
+  {
+    path: '/flashcard',
+    name: 'flashcard',
+    component: () => import(/* webpackChunkName: "logout" */ '../views/Flashcard.vue'),
+  },
+
 ];
 
 const router = new VueRouter({
