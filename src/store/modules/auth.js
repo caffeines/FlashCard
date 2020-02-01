@@ -45,7 +45,7 @@ export default {
       }
     },
 
-    isLogedIn({ commit }) {
+    isLogedInRequest({ commit }) {
       const token = LS.getItem('authtoken');
       if (token) {
         commit('setToken', token);

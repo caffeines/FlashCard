@@ -97,11 +97,13 @@ export default {
       return items;
     },
   },
-  mounted() {
-    this.cardsRequest();
+  async mounted() {
+    this.isLogedInRequest();
+    await this.topicsRequest();
+    await this.cardsRequest();
   },
   methods: {
-    ...mapActions(['cardsRequest']),
+    ...mapActions(['cardsRequest', 'topicsRequest', 'isLogedInRequest']),
   },
 };
 </script>

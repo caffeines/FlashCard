@@ -10,7 +10,7 @@ const instance = axios.create({
   baseURL: remote,
   timeout: 10000,
   headers: {
-    Authorization: `Bearer ${LS.getItem('token')}`,
+    Authorization: `Bearer ${LS.getItem('authtoken')}`,
     version: 'v1.0.0',
   },
 });

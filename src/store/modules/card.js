@@ -12,13 +12,14 @@ export default {
       state.hasMore = payload.hasMore;
     },
     addCard(state, payload) {
-      state.cards.unshiift(payload);
+      state.cards.unshift(payload);
     },
   },
   actions: {
-    async cardsRequest({ commit }, payload) {
+    async cardsRequest({ commit, state }, payload) {
       try {
         const { data: { data: { cards: { cards, hasMore } } } } = await instance.get('card');
+        if (!payload) { state.cards = []; }
         commit('setCard', { cards, hasMore });
         return ({ cards, hasMore });
       } catch (err) {
@@ -29,7 +30,7 @@ export default {
       try {
         const { data } = await instance.post('/card', { ...payload });
         commit('addCard', data.data);
-        return (data.data);
+        return (data);
       } catch (err) {
         return Promise.reject(err.response.data || err);
       }
