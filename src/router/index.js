@@ -25,6 +25,11 @@ const routes = [
     name: 'verify',
     component: () => import(/* webpackChunkName: "verify" */ '../views/Verify.vue'),
   },
+  {
+    path: '/logout',
+    name: 'logout',
+    component: () => import(/* webpackChunkName: "logout" */ '../views/Logout.vue'),
+  },
 ];
 
 const router = new VueRouter({

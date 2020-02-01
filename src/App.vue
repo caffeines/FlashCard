@@ -65,7 +65,7 @@ export default {
             to: '/',
           },
           {
-            icon: 'mdi-user',
+            icon: 'mdi-account',
             title: 'Profile',
             to: '/profile',
           },

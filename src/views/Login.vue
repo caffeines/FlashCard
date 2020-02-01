@@ -54,6 +54,8 @@
   </v-row>
 </template>
 <script>
+import { mapActions } from 'vuex';
+
 export default {
   data: () => ({
     errorMessages: '',
@@ -92,6 +94,7 @@ export default {
   },
 
   methods: {
+    ...mapActions(['showSnackbar', 'loginRequest']),
     resetForm() {
       this.errorMessages = [];
       this.formHasErrors = false;
@@ -108,18 +111,19 @@ export default {
       });
       if (!this.formHasErrors) {
         try {
-          await this.$store.dispatch('loginRequest', {
+          await this.loginRequest({
             username: this.username,
             password: this.password,
           });
-          this.$store.dispatch('snackbar/showSnackbar', {
+          this.showSnackbar({
             status: 'success',
             text: 'Login successful',
           });
+          this.$router.push('/');
         } catch (ex) {
-          this.$store.dispatch('snackbar/showSnackbar', {
+          this.showSnackbar({
             status: 'error',
-            text: ex.response.data.errors.message,
+            text: ex.errors.message,
           });
         }
       }
