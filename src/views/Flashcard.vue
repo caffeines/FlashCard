@@ -126,7 +126,6 @@ export default {
         title: this.title,
         description: this.description,
         select: this.select,
-        url: this.url,
       };
     },
   },
@@ -159,7 +158,7 @@ export default {
     resetForm() {
       this.errorMessages = [];
       this.formHasErrors = false;
-
+      this.url = '';
       Object.keys(this.form).forEach((f) => {
         this.$refs[f].reset();
       });
@@ -170,7 +169,6 @@ export default {
         if (!this.form[f]) this.formHasErrors = true;
         this.$refs[f].validate(true);
       });
-
       if (!this.formHasErrors) {
         try {
           await this.newCardRequest({
@@ -185,11 +183,12 @@ export default {
             text: 'New card added successfully',
           });
           this.resetForm();
-        } catch (error) {
+        } catch ({ errors, status }) {
           this.showSnackbar({
             status: 'error',
-            text: 'New card addition failed',
+            text: errors.message,
           });
+          if (status === '401') this.$router.push('/login');
         }
       }
     },

@@ -18,6 +18,8 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex';
+
 export default {
   props: ['cardData'],
   data() {
@@ -32,8 +34,9 @@ export default {
     },
   },
   methods: {
+    ...mapMutations(['setModal']),
     showFlashCard() {
-      console.log('Hey ma ma!');
+      this.setModal({ data: this.cardData });
     },
   },
 };

@@ -183,9 +183,11 @@ export default {
             this.errorMessages = 'Username already exist';
             return false;
           })
+          // eslint-disable-next-line consistent-return
           .catch((err) => {
-            console.log(err);
-            return false;
+            if (err) {
+              return false;
+            }
           });
       }
       return true;
