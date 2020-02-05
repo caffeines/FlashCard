@@ -28,6 +28,7 @@ export default {
     },
     async newCardRequest({ commit }, payload) {
       try {
+        commit('addTopics', payload.topic);
         const { data } = await instance.post('/card', { ...payload });
         commit('addCard', data.data);
         return (data);

@@ -22,6 +22,8 @@ export default {
     async profileRequest({ commit }) {
       try {
         const { data } = await instance.get('user/profile');
+        console.log(data.data);
+        window.userId = data.data.id;
         commit('setProfile', data.data);
         return data.data;
       } catch (error) {

@@ -14,6 +14,13 @@ export default {
       });
       state.hasMore = payload.hasMore;
     },
+    addTopics(state, payload) {
+      payload.forEach((topic) => {
+        if (!state.topics.includes(topic)) {
+          state.topics.push(topic);
+        }
+      });
+    },
   },
   actions: {
     async topicsRequest({ commit, state }, payload) {

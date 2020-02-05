@@ -101,9 +101,10 @@ export default {
     this.isLogedInRequest();
     await this.topicsRequest();
     await this.cardsRequest();
+    await this.profileRequest();
   },
   methods: {
-    ...mapActions(['cardsRequest', 'topicsRequest', 'isLogedInRequest']),
+    ...mapActions(['cardsRequest', 'topicsRequest', 'isLogedInRequest', 'profileRequest']),
   },
 };
 </script>

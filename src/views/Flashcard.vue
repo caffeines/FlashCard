@@ -7,7 +7,8 @@
           <v-text-field
             ref="title"
             v-model="title"
-            :rules="[() => !!title || 'Title is required']"
+            :rules="[() => !!title || 'Title is required',
+              (l) => l.length >= 3 || 'Minimum 3 characters']"
             :error-messages="errorMessages"
             label="Title"
             clearable
@@ -54,7 +55,7 @@
           <v-textarea
             ref="description"
             v-model="description"
-            :rules="[rules.required, rules.min]"
+            :rules="[rules.required, rules.min, rules.max]"
             :error-messages="errorMessages"
             label="Description"
             clearable
@@ -113,7 +114,8 @@ export default {
     show1: false,
     rules: {
       required: value => !!value || 'Description is required',
-      min: v => (v && v.length >= 100) || 'Min 100 characters',
+      min: v => (v && v.length >= 100) || 'Minimum 100 characters',
+      max: v => (v && v.length <= 1000) || 'Maximum 1000 characters',
     },
     select: [],
     items: [],

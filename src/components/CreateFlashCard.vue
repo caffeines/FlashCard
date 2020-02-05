@@ -26,15 +26,22 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   data() {
     return {
       hover: false,
     };
   },
+  computed: {
+    ...mapGetters(['isLogedIn']),
+  },
   methods: {
     createNewFlashCard() {
-      this.$router.push('/flashcard');
+      if (!this.isLogedIn) {
+        this.$router.push('/login');
+      } else { this.$router.push('/flashcard'); }
     },
   },
 };

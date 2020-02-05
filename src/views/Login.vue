@@ -119,8 +119,8 @@ export default {
             status: 'success',
             text: 'Login successful',
           });
-          this.$router.go();
           this.$router.push('/');
+          this.$router.go();
         } catch (ex) {
           this.showSnackbar({
             status: 'error',
